@@ -1,24 +1,72 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import Alert from "./components/Alert";
+import About from "./components/About";
+import Navbar from './components/Navbar';
+import TextForm from './components/TextForm';
+import { useState } from "react"
+
 
 function App() {
+  const [mode,setMode] = useState('light')
+  const [alert,setAlert] = useState(null)
+  const toggleMode = ()=>{
+    if (mode === 'light'){
+      setMode('dark')
+      document.body.style.backgroundColor = '#2f324f';
+      document.title = 'TextUtils - Dark mode'
+      // setInterval(() => {
+      //   document.title = 'TextUtils - Dark mode Enabeld'
+      // }, 1500);
+      // setInterval(() => {
+      //   document.title = 'TextUtils - Enabel light mode'
+      // }, 2000);
+      showAlert('Dark mode is Enabled', 'success') 
+    }
+    else{
+      setMode('light')
+      document.body.style.backgroundColor = 'white';
+      document.title = 'TextUtils - light mode'
+      showAlert('Light mode is Enabled', 'success')
+    }
+  }
+  const showAlert = (message,type)=>{
+    setAlert({
+      msg: message,
+      type: type
+    })
+
+    setTimeout(() => {
+      setAlert(null);
+    }, 2000);
+    
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+     <Router>
+        <Navbar title='textutils' aboutText='About Us' mode={mode} toggleMode={toggleMode} />
+        <Alert alert={alert}/>
+        {/* <Navbar /> */}
+        {/* <div className="container">
+          <TextForm showAlert={showAlert} heading="Enter your text to analyze" mode={mode}/>
+          <About/>
+        </div> */}
+          <div className="container my-3">
+        <Routes>
+          <Route path="/"
+            element={
+              <TextForm
+                showAlert={showAlert}
+                heading="Enter your text to analyze"
+                mode={mode}
+              />
+            }
+          />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </div>
+      </Router>  
+    </>
   );
 }
 

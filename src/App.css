@@ -7,6 +7,14 @@
   pointer-events: none;
 }
 
+.form-check{
+    display: flex !important;
+    align-items: center;
+    gap: 10px;
+    width: 200px !important;
+    padding-left: 0 !important;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
