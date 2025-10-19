@@ -1,5 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
+// import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Alert from "./components/Alert";
 import About from "./components/About";
 import Navbar from './components/Navbar';
@@ -10,11 +11,34 @@ import { useState } from "react"
 function App() {
   const [mode,setMode] = useState('light')
   const [alert,setAlert] = useState(null)
-  const toggleMode = ()=>{
+  // const removeClasses = ()=>{
+  //   document.body.classList.remove('bg-primary')
+  //   document.body.classList.remove('bg-warning')
+  //   document.body.classList.remove('bg-danger')
+  //   document.body.classList.remove('bg-success')
+  // }
+  const toggleMode = (cls)=>{
+    // Always remove previous classes first
+  document.body.classList.remove(
+    "bg-primary",
+    "bg-success",
+    "bg-warning",
+    "bg-danger",
+    "bg-light",
+    "bg-dark"
+  );
+    // 👉 If user clicked on a color square
+    if (cls) {
+      console.log(cls)
+      document.body.classList.add("bg-" + cls);
+      document.body.style.backgroundColor = ""; // clear custom color
+      showAlert(`${cls} theme applied`, "success");
+      return; // stop here, no dark/light toggle
+    }
     if (mode === 'light'){
       setMode('dark')
       document.body.style.backgroundColor = '#2f324f';
-      document.title = 'TextUtils - Dark mode'
+      // document.title = 'TextUtils - Dark mode'
       // setInterval(() => {
       //   document.title = 'TextUtils - Dark mode Enabeld'
       // }, 1500);
@@ -26,7 +50,7 @@ function App() {
     else{
       setMode('light')
       document.body.style.backgroundColor = 'white';
-      document.title = 'TextUtils - light mode'
+      // document.title = 'TextUtils - light mode'
       showAlert('Light mode is Enabled', 'success')
     }
   }
@@ -62,7 +86,7 @@ function App() {
               />
             }
           />
-          <Route path="/about" element={<About />} />
+          <Route path="/about" element={<About mode={mode} />} />
         </Routes>
       </div>
       </Router>  

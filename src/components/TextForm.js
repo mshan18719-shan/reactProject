@@ -94,20 +94,20 @@ export default function TextForm(props) {
          <textarea className="form-control" style={{backgroundColor: props.mode === 'light'?'white':'rgb(32 52 65)', color: props.mode === 'light'?'black':'white'}} id="myBox" placeholder="Enter your text" value={text} onChange={handlerOnChange} rows="8"></textarea>
          </div>
          <h5>Convert to :</h5>
-         <button className="btn btn-primary m-2" onClick={handleLoClick}>lowercase</button>
-         <button className="btn btn-secondary m-2" onClick={handleUpClick}>UPPERCASE</button>
-         <button className="btn btn-light m-2" onClick={removeExtraSpaces}>RemoveSpace</button>
-         <button className="btn btn-success m-2" onClick={capitalizeCase}>Capital</button>
-         <button className="btn btn-info m-2" onClick={sentanceCase}>Sentance</button>
-         <button className="btn btn-light m-2" onClick={titleCase}>TitleCase</button>
-         <button className="btn btn-dark m-2" onClick={alternateCase}>AlTeRnAtEcAsE</button>
-         <button className="btn btn-primary m-2" onClick={alternateCase}>InVeRsEcAsE</button>
-         <button className="btn btn-warning m-2" onClick={handleCopy}>Copy to Clipboard</button>
-         <button className="btn btn-danger x-2" onClick={clearAll}>Clear All</button>
+         <button disabled={text.length===0} className="btn btn-primary m-1" onClick={handleLoClick}>lowercase</button>
+         <button disabled={text.length===0} className="btn btn-secondary m-1" onClick={handleUpClick}>UPPERCASE</button>
+         <button disabled={text.length===0} className="btn btn-light m-1" onClick={removeExtraSpaces}>RemoveSpace</button>
+         <button disabled={text.length===0} className="btn btn-success m-1" onClick={capitalizeCase}>Capital</button>
+         <button disabled={text.length===0} className="btn btn-info m-1" onClick={sentanceCase}>Sentance</button>
+         <button disabled={text.length===0} className="btn btn-light m-1" onClick={titleCase}>TitleCase</button>
+         <button disabled={text.length===0} className="btn btn-dark m-1" onClick={alternateCase}>AlTeRnAtEcAsE</button>
+         <button disabled={text.length===0} className="btn btn-primary m-1" onClick={alternateCase}>InVeRsEcAsE</button>
+         <button disabled={text.length===0} className="btn btn-warning m-1" onClick={handleCopy}>Copy to Clipboard</button>
+         <button disabled={text.length===0} className="btn btn-danger m-1" onClick={clearAll}>Clear All</button>
     </div>
     <div className={`container my-4 text-${props.mode === 'light'?'dark':'light'}`}>
       <h4>Your text summary</h4>
-      <p>{text.split(" ").filter((word) => word !== "").length} Words, {text.length} Characters</p>
+      <p>{text.split(/\s+/).filter((word) => {return word.length !==0}).length} Words, {text.length} Characters</p>
       <h6>Time Take for reading</h6>
       <p>{0.004 * text.length} Seconds to read</p>
       <h5>Text Preview</h5>
